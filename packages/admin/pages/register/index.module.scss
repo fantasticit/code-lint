@@ -1,0 +1,35 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #fff;
+  background-color: #001529;
+
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 520px;
+    margin-top: 20vh;
+
+    h2 {
+      font-size: 26px;
+      color: #eee;
+      margin-bottom: 40px;
+    }
+
+    span,
+    label,
+    a {
+      color: #fff;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .container {
+      max-width: 90%;
+    }
+  }
+}
