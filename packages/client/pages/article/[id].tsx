@@ -5,7 +5,6 @@ import Router from 'next/router';
 import { Icon } from 'antd';
 import Link from 'next/link';
 import cls from 'classnames';
-import Viewer from 'viewerjs';
 import { Modal, Form, Input, message } from 'antd';
 import * as dayjs from 'dayjs';
 import hljs from 'highlight.js';
@@ -71,13 +70,6 @@ const Article: NextPage<IProps> = (props) => {
       }, 0);
     }
   }, [shouldCheckPassWord, article.id]);
-
-  // 大图插件
-  useEffect(() => {
-    if (!shouldCheckPassWord) {
-      new Viewer(ref.current, { inline: false });
-    }
-  }, [shouldCheckPassWord]);
 
   return (
     <div>
