@@ -39,7 +39,7 @@ export class ViewService {
   async findAll(queryParams: any = {}): Promise<[View[], number]> {
     const query = this.viewRepository
       .createQueryBuilder('view')
-      .orderBy('view.updateAt', 'DESC');
+      .orderBy('view.createAt', 'DESC');
 
     const { page = 1, pageSize = 12, pass, ...otherParams } = queryParams;
 
@@ -47,7 +47,7 @@ export class ViewService {
     query.take(+pageSize);
 
     if (otherParams) {
-      Object.keys(otherParams).forEach(key => {
+      Object.keys(otherParams).forEach((key) => {
         query
           .andWhere(`view.${key} LIKE :${key}`)
           .setParameter(`${key}`, `%${otherParams[key]}%`);
@@ -74,6 +74,20 @@ export class ViewService {
    */
   async findById(id): Promise<View> {
     return this.viewRepository.findOne(id);
+  }
+
+  /**
+   * 更新地址
+   * @param id
+   * @param address
+   */
+  async updateIpAddress(id, { address }): Promise<View> {
+    const old = await this.viewRepository.findOne(id);
+    const updatedPage = await this.viewRepository.merge(old, {
+      address,
+      updateAt: old.updateAt,
+    });
+    return this.viewRepository.save(updatedPage);
   }
 
   /**
