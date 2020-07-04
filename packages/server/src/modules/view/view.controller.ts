@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Delete,
   Param,
   Query,
@@ -69,6 +70,16 @@ export class ViewController {
   @UseGuards(JwtAuthGuard)
   findById(@Param('id') id) {
     return this.viewService.findById(id);
+  }
+
+  /**
+   * 更新页面
+   * @param id
+   * @param page
+   */
+  @Patch(':id')
+  updateIpAddress(@Param('id') id, @Body() info) {
+    return this.viewService.updateIpAddress(id, info);
   }
 
   /**
