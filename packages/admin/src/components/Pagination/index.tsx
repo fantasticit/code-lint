@@ -39,6 +39,7 @@ export const Pagination: React.FC<IProps> = ({
         <APagination
           pageSizeOptions={['8', '12', '24', '36']}
           showSizeChanger
+          showTotal={(total) => `共${total}条`}
           total={total}
           current={page}
           pageSize={pageSize}
