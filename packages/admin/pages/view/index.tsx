@@ -19,7 +19,7 @@ function showInfo({ title, content }) {
 }
 
 // 解析 ip 地址
-const parseIp = (ip, userAgent) => {
+const parseIp = (id, ip, userAgent, onSuccess) => {
   const hide = message.loading('正在解析中', 0);
   const uaparser = new UAParser();
   uaparser.setUA(userAgent);
@@ -62,29 +62,32 @@ const parseIp = (ip, userAgent) => {
   };
 
   ViewProvider.parseIp(ip)
-    .then(res => {
+    .then((res) => {
       content.push(<Descriptions.Item label="IP">{res}</Descriptions.Item>);
+      ViewProvider.updateIpAddress(id, res).then(onSuccess);
       handle();
     })
-    .catch(e => {
+    .catch((e) => {
       content.push(<Descriptions.Item label="IP">解析失败</Descriptions.Item>);
       handle();
     });
 };
+
+let currentParams = null;
 
 const Views: NextPage = () => {
   const [views, setViews] = useState<IView[]>([]);
   const [loading, setLoaidng] = useState(false);
   const [params, setParams] = useState(null);
 
-  const getViews = useCallback(params => {
+  const getViews = useCallback((params) => {
     if (loading) {
       return;
     }
 
     setLoaidng(true);
     return ViewProvider.getViews(params)
-      .then(res => {
+      .then((res) => {
         setParams(params);
         setViews(res[0]);
         setLoaidng(false);
@@ -95,7 +98,7 @@ const Views: NextPage = () => {
 
   // 删除
   const deleteView = useCallback(
-    id => {
+    (id) => {
       ViewProvider.deleteView(id).then(() => {
         message.success('访问删除成功');
         getViews(params);
@@ -112,17 +115,89 @@ const Views: NextPage = () => {
       width: '10%',
     },
     {
-      title: 'User Agent',
+      title: '浏览器',
       dataIndex: 'userAgent',
       key: 'userAgent',
-      width: '30%',
+      render: (userAgent) => {
+        const uaparser = new UAParser();
+        uaparser.setUA(userAgent);
+        const uaInfo = uaparser.getResult();
+        return (
+          <span>
+            {uaInfo.browser && uaInfo.browser.name
+              ? uaInfo.browser.name + ' ' + uaInfo.browser.version
+              : '-'}
+          </span>
+        );
+      },
+    },
+    {
+      title: '内核',
+      dataIndex: 'kreal',
+      key: 'kreal',
+      render: (_, record) => {
+        const uaparser = new UAParser();
+        uaparser.setUA(record.userAgent);
+        const uaInfo = uaparser.getResult();
+        return (
+          <span>
+            {uaInfo.engine && uaInfo.engine.name
+              ? uaInfo.engine.name + ' ' + uaInfo.engine.version
+              : '-'}
+          </span>
+        );
+      },
+    },
+    {
+      title: '操作系统',
+      dataIndex: 'os',
+      key: 'os',
+      render: (_, record) => {
+        const uaparser = new UAParser();
+        uaparser.setUA(record.userAgent);
+        const uaInfo = uaparser.getResult();
+        return (
+          <span>
+            {uaInfo.os.name} {uaInfo.os.version}
+          </span>
+        );
+      },
+    },
+    {
+      title: '设备',
+      dataIndex: 'device',
+      key: 'device',
+      render: (_, record) => {
+        const uaparser = new UAParser();
+        uaparser.setUA(record.userAgent);
+        const uaInfo = uaparser.getResult();
+        return (
+          <span>
+            {uaInfo.device.vendor
+              ? uaInfo.device.vendor +
+                ' ' +
+                uaInfo.device.model +
+                ' ' +
+                uaInfo.device.type
+              : '未知设备'}
+          </span>
+        );
+      },
+    },
+    {
+      title: '地址',
+      dataIndex: 'address',
+      key: 'address',
+      render: (address) => {
+        return address || '-';
+      },
     },
     {
       title: 'URL',
       dataIndex: 'url',
       key: 'url',
       width: '20%',
-      render: url => (
+      render: (url) => (
         <a className={style.link} href={url} target="_blank">
           {url}
         </a>
@@ -132,7 +207,7 @@ const Views: NextPage = () => {
       title: '访问量',
       dataIndex: 'count',
       key: 'count',
-      render: views => (
+      render: (views) => (
         <Badge
           count={views}
           showZero={true}
@@ -145,7 +220,7 @@ const Views: NextPage = () => {
       title: '访问时间',
       dataIndex: 'updateAt',
       key: 'updateAt',
-      render: date => dayjs.default(date).format('YYYY-MM-DD HH:mm:ss'),
+      render: (date) => dayjs.default(date).format('YYYY-MM-DD HH:mm:ss'),
     },
   ];
 
@@ -154,14 +229,20 @@ const Views: NextPage = () => {
     key: 'action',
     render: (_, record) => (
       <span className={style.action}>
-        <a
-          onClick={() => {
-            parseIp(record.ip, record.userAgent);
-          }}
-        >
-          解析
-        </a>
-        <Divider type="vertical" />
+        {record.address ? null : (
+          <>
+            <a
+              onClick={() => {
+                parseIp(record.id, record.ip, record.userAgent, () =>
+                  getViews(currentParams)
+                );
+              }}
+            >
+              解析
+            </a>
+            <Divider type="vertical" />
+          </>
+        )}
         <Popconfirm
           title="确认删除这个访问？"
           onConfirm={() => deleteView(record.id)}
@@ -198,7 +279,10 @@ const Views: NextPage = () => {
               msg: '请输入 URL',
             },
           ]}
-          onSearch={getViews}
+          onSearch={(params) => {
+            currentParams = params;
+            return getViews(params);
+          }}
         />
       </div>
     </AdminLayout>
