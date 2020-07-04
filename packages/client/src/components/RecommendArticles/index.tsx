@@ -35,6 +35,7 @@ export const RecommendArticles: React.FC<IProps> = ({
           <span>推荐</span>
         </div>
       )}
+      {articles.length <= 0 ? <p className={style.empty}>暂无推荐</p> : null}
       {mode === 'inline' ? (
         <ul className={style.inlineWrapper}>
           {(articles || []).map((article) => {
