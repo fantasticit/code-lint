@@ -28,7 +28,7 @@ const _Register: React.FC<IProps> = ({ form }) => {
     callback();
   };
 
-  const submit = useCallback(e => {
+  const submit = useCallback((e) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
@@ -48,7 +48,7 @@ const _Register: React.FC<IProps> = ({ form }) => {
               },
             });
           })
-          .catch(e => setLoading(false));
+          .catch((e) => setLoading(false));
       }
     });
   }, []);
@@ -135,6 +135,11 @@ const _Register: React.FC<IProps> = ({ form }) => {
           </Form.Item>
         </Form>
       </div>
+      <ul className={style.bubbles}>
+        {Array.from({ length: 10 }).map((_, idx) => (
+          <li key={idx}></li>
+        ))}
+      </ul>
     </div>
   );
 };
