@@ -1,6 +1,7 @@
 import React from 'react';
 import App from 'next/app';
 import Router from 'next/router';
+import Viewer from 'viewerjs';
 import { ViewProvider } from '@providers/view';
 import { SettingProvider } from '@providers/setting';
 import { PageProvider } from '@providers/page';
@@ -20,7 +21,6 @@ const addView = (url) => {
   if (/localhost/.test(url)) {
     return;
   }
-
   ViewProvider.addView({ url });
 };
 
@@ -51,6 +51,17 @@ class MyApp extends App {
     const url = window.location.href;
     lastUrl = url;
     addView(url);
+    let viewer = new Viewer(document.querySelector('#__next'), {
+      inline: false,
+    });
+    let observer = new MutationObserver(() => {
+      viewer.update();
+    });
+    observer.observe(document.querySelector('#__next'), {
+      attributes: true,
+      childList: true,
+      subtree: true,
+    });
   }
 
   componentDidUpdate() {
