@@ -23,6 +23,9 @@ export class View {
   @Column({ default: 1 })
   count: number; // 同一 userAgent ，同一 url 的访问量
 
+  @Column({ type: 'text', default: null })
+  address: string; // 访问地址
+
   @CreateDateColumn({
     type: 'datetime',
     comment: '创建时间',
