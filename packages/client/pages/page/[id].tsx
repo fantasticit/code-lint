@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { NextPage } from 'next';
 import { Helmet } from 'react-helmet';
 import hljs from 'highlight.js';
-import Viewer from 'viewerjs';
 import { CommentAndRecommendArticles } from '@components/CommentAndRecommendArticles';
 import { PageProvider } from '@providers/page';
 import style from './index.module.scss';
@@ -31,11 +30,6 @@ const Page: NextPage<IProps> = (props) => {
       }, 0);
     }
   }, [page.id]);
-
-  // 大图插件
-  useEffect(() => {
-    new Viewer(ref.current, { inline: false });
-  }, []);
 
   return (
     <div>
