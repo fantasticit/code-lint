@@ -13,19 +13,19 @@ const _Login: React.FC<ILoginProps> = ({ form }) => {
   const { getFieldDecorator } = form;
   const [loading, setLoading] = useState(false);
 
-  const submit = useCallback(e => {
+  const submit = useCallback((e) => {
     e.preventDefault();
     form.validateFields((err, values) => {
       if (!err) {
         setLoading(true);
         UserProvider.login(values)
-          .then(userInfo => {
+          .then((userInfo) => {
             sessionStorage.setItem('user', JSON.stringify(userInfo));
             sessionStorage.setItem('token', userInfo.token);
             setLoading(false);
             Router.push('/');
           })
-          .catch(e => setLoading(false));
+          .catch((e) => setLoading(false));
       }
     });
   }, []);
@@ -83,6 +83,11 @@ const _Login: React.FC<ILoginProps> = ({ form }) => {
           </Form.Item>
         </Form>
       </div>
+      <ul className={style.bubbles}>
+        {Array.from({ length: 10 }).map((_, idx) => (
+          <li key={idx}></li>
+        ))}
+      </ul>
     </div>
   );
 };
