@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Button, Icon, Avatar, Pagination } from 'antd';
 import { format } from 'timeago.js';
 import cls from 'classnames';
-import Viewer from 'viewerjs';
 import hljs from 'highlight.js';
 import { CommentProvider } from '@providers/comment';
 import { Editor } from './Editor';
@@ -150,8 +149,6 @@ interface IProps {
   isInPage?: boolean;
 }
 
-let viewer: any = null;
-
 export const MyComment: React.FC<IProps> = ({
   articleId,
   isInPage = false,
@@ -171,21 +168,8 @@ export const MyComment: React.FC<IProps> = ({
         pageSize,
       })
         .then((res) => {
-          // if (!loadMore) {
-          //   setComments(res[0]);
-          // } else {
-          //   setComments((comments) => [...comments, ...res[0]]);
-          // }
           setComments(res[0]);
-
           setTotal(res[1]);
-
-          if (!viewer) {
-            viewer = new Viewer(ref.current, { inline: false });
-          } else {
-            viewer.update();
-          }
-
           setTimeout(() => {
             setLoading(false);
             const blocks = ref.current.querySelectorAll('pre code');
@@ -198,11 +182,6 @@ export const MyComment: React.FC<IProps> = ({
     },
     [articleId]
   );
-
-  // const loadMore = () => {
-  //   setPage(page + 1);
-  //   getComments(page + 1, pageSize, true);
-  // };
 
   const loadMore = (page) => {
     setPage(page);
@@ -242,19 +221,6 @@ export const MyComment: React.FC<IProps> = ({
       </div>
 
       <div className={style.pagination}>
-        {/* {loading || page * pageSize < total ? (
-          <Button
-            type="primary"
-            onClick={loadMore}
-            disabled={loading}
-            loading={loading}
-          >
-            加载更多
-          </Button>
-
-        ) : (
-          <span>{total > 0 ? `共 ${total} 组` : '快来抢沙发'}</span>
-        )} */}
         {!loading && total > 0 ? (
           <Pagination
             size="small"
