@@ -136,17 +136,15 @@ const Editor: NextPage = () => {
       </header>
       <div className={cls(style.content)}>
         <article>
-          <div>
-            <MDEditor
-              value={article.content}
-              onChange={(value) => {
-                setArticle((article) => {
-                  article.content = value;
-                  return article;
-                });
-              }}
-            />
-          </div>
+          <MDEditor
+            value={article.content}
+            onChange={(value) => {
+              setArticle((article) => {
+                article.content = value;
+                return article;
+              });
+            }}
+          />
         </article>
       </div>
       <FileSelectDrawer

@@ -1,7 +1,5 @@
 .wrapper {
-  :global {
-    .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listLTR:before {
-      top: 3px;
-    }
-  }
+  height: calc(100vh - 66.5px - 48px);
+  min-height: 400px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.06);
 }
