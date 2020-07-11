@@ -16,7 +16,6 @@ const converter = new Showdown.Converter({
   tasklists: true,
 });
 
-let monoca = null;
 let monacoInstance = null;
 
 export const Editor: React.FC<IProps> = ({ value = '', onChange }) => {
@@ -36,8 +35,8 @@ export const Editor: React.FC<IProps> = ({ value = '', onChange }) => {
   useEffect(() => {
     Promise.all([import('monaco-editor/esm/vs/editor/editor.api.js')]).then(
       (res) => {
-        monoca = res[0];
-        monacoInstance = (monaco as any).editor.create(ref.current, {
+        const monoca = res[0] as any;
+        monacoInstance = monoca.editor.create(ref.current, {
           value: value,
           language: 'javascript',
         });
