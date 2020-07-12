@@ -140,6 +140,9 @@
       .textInfoWrapper {
         flex: 1;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
 
       .title {
@@ -157,17 +160,18 @@
       .desc {
         max-width: 100%;
         font-size: 14px;
-        margin: 0;
+        margin-top: 0.5rem;
         color: var(--second-text-color);
-
-        white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
 
       .meta {
         width: 100%;
-        margin: 1rem 0 0;
+        margin: 0.5rem 0 0;
         font-size: 14px;
         color: var(--second-text-color);
         clear: both;
