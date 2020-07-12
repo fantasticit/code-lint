@@ -51,17 +51,17 @@ class MyApp extends App {
     const url = window.location.href;
     lastUrl = url;
     addView(url);
-    let viewer = new Viewer(document.querySelector('#__next'), {
-      inline: false,
-    });
-    let observer = new MutationObserver(() => {
-      viewer.update();
-    });
-    observer.observe(document.querySelector('#__next'), {
-      attributes: true,
-      childList: true,
-      subtree: true,
-    });
+    // let viewer = new Viewer(document.querySelector('#__next'), {
+    //   inline: false,
+    // });
+    // let observer = new MutationObserver(() => {
+    //   viewer.update();
+    // });
+    // observer.observe(document.querySelector('#__next'), {
+    //   attributes: true,
+    //   childList: true,
+    //   subtree: true,
+    // });
   }
 
   componentDidUpdate() {
