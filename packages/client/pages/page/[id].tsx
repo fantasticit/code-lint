@@ -52,7 +52,7 @@ const Page: NextPage<IProps> = (props) => {
               <div
                 ref={ref}
                 className={'markdown'}
-                dangerouslySetInnerHTML={{ __html: page.content }}
+                dangerouslySetInnerHTML={{ __html: page.html }}
               ></div>
             </div>
           </div>

@@ -1,18 +1,27 @@
-import { httpProvider } from "./http";
+import { httpProvider } from './http';
+import * as Showdown from 'showdown';
+
+const converter = new Showdown.Converter({
+  tables: true,
+  simplifiedAutoLink: true,
+  strikethrough: true,
+  tasklists: true,
+  emoji: true,
+});
 
 export class PageProvider {
   /**
    * 获取所有页面
    */
   static async getPages(params): Promise<[IPage[], number]> {
-    return httpProvider.get("/page", { params: params });
+    return httpProvider.get('/page', { params: params });
   }
 
   /**
    * 获取所有已发布页面
    */
   static async getAllPublisedPages(): Promise<[IPage[], number]> {
-    return httpProvider.get("/page", { params: { status: "publish" } });
+    return httpProvider.get('/page', { params: { status: 'publish' } });
   }
 
   /**
@@ -28,7 +37,8 @@ export class PageProvider {
    * @param data
    */
   static async addPage(data): Promise<IPage> {
-    return httpProvider.post("/page", data);
+    data.html = converter.makeHtml(data.content);
+    return httpProvider.post('/page', data);
   }
 
   /**
@@ -37,6 +47,7 @@ export class PageProvider {
    * @param data
    */
   static async updatePage(id, data): Promise<IPage> {
+    data.html = converter.makeHtml(data.content);
     return httpProvider.patch(`/page/${id}`, data);
   }
 

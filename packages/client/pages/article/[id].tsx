@@ -134,7 +134,7 @@ const Article: NextPage<IProps> = (props) => {
               <div
                 ref={ref}
                 className={cls('markdown', style.markdown)}
-                dangerouslySetInnerHTML={{ __html: article.content }}
+                dangerouslySetInnerHTML={{ __html: article.html }}
               ></div>
 
               <div className={style.articleFooter}>

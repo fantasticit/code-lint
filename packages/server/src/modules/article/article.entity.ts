@@ -28,9 +28,15 @@ export class Article {
   @Column({ type: 'mediumtext', default: null, charset: 'utf8mb4' })
   content: string; // 原始内容
 
+  @Column({ type: 'mediumtext', default: null, charset: 'utf8mb4' })
+  html: string; // 格式化内容，自动生成
+
+  @Column({ type: 'mediumtext', default: null })
+  toc: string; // 格式化内容索引，自动生成
+
   @ManyToOne(
     () => Category,
-    category => category.articles,
+    (category) => category.articles,
     { cascade: true }
   )
   @JoinTable()
@@ -38,7 +44,7 @@ export class Article {
 
   @ManyToMany(
     () => Tag,
-    tag => tag.articles,
+    (tag) => tag.articles,
     { cascade: true }
   )
   @JoinTable()
