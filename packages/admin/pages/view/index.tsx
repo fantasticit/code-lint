@@ -218,8 +218,8 @@ const Views: NextPage = () => {
     },
     {
       title: '访问时间',
-      dataIndex: 'updateAt',
-      key: 'updateAt',
+      dataIndex: 'createAt',
+      key: 'createAt',
       render: (date) => dayjs.default(date).format('YYYY-MM-DD HH:mm:ss'),
     },
   ];
