@@ -1,5 +1,0 @@
-.git
-node_modules
-coverage
-.nyc_output
-packages/*/node_modules
