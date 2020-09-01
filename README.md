@@ -1,6 +1,6 @@
 # @fantasticit/code-lint
 
-![preview](./code-lint.gif)
+<img width="50%" src="./code-lint.gif" alt="preview" />
 
 ## Usage
 
