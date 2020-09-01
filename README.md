@@ -1,5 +1,7 @@
 # @fantasticit/code-lint
 
+> 一行命令为项目集成 eslint、stylelint、commitlint、lint-staged、prettierr 支持
+
 <img width="50%" src="./code-lint.gif" alt="preview" />
 
 ## Usage
