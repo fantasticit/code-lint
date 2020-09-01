@@ -319,6 +319,20 @@
   resolved "https://registry.npmjs.org/@commitlint/types/-/types-9.1.1.tgz#d97ebc35d20eed6d8458361cbca5c7cb85d45184"
   integrity sha512-SXY8bCQ1qacJ8AUTUxjabY8G6OjSmMPLN9MBCzGaKOjpPNX6z8zbXTbk9oU3GHZLtcxweWLCi2n49IRS4iQlwg==
 
+"@fantasticit/code-lint@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.npmjs.org/@fantasticit/code-lint/-/code-lint-0.0.5.tgz#b075305580399ef2d661180dc7c89d8fccc8a90c"
+  integrity sha512-2MSjXftNW4LhthOsYPq/a9Bxg3lx+nn62IiErAGsJVU3qRxWXRFG7SF2My65Vom1G4MV3jlJCoIMBDgUQ1Rk1Q==
+  dependencies:
+    "@types/node" "^14.0.12"
+    chalk "^4.1.0"
+    commander "^5.1.0"
+    cross-spawn "^7.0.3"
+    fs-extra "^9.0.1"
+    ncp "^2.0.0"
+    ora "^4.0.5"
+    rimraf "^3.0.2"
+
 "@nodelib/fs.scandir@2.1.3":
   version "2.1.3"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.3.tgz#3a582bdb53804c6ba6d146579c46e52130cf4a3b"
