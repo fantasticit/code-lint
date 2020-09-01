@@ -1,0 +1,64 @@
+declare const getDefaultStyleLintConfig: () => {
+    extends: string;
+    plugins: string[];
+    rules: {
+        'order/order': string[];
+        'order/properties-order': string[];
+        'selector-pseudo-class-no-unknown': (boolean | {
+            ignorePseudoClasses: string[];
+        })[];
+        'at-rule-no-unknown': (boolean | {
+            ignoreAtRules: string[];
+        })[];
+        'color-no-invalid-hex': boolean;
+        'color-hex-case': string;
+        'color-hex-length': string;
+        'font-family-no-duplicate-names': boolean;
+        'string-no-newline': boolean;
+        'unit-no-unknown': boolean;
+        'declaration-block-no-duplicate-properties': boolean;
+        'declaration-block-no-shorthand-property-overrides': boolean;
+        'declaration-block-trailing-semicolon': string;
+        'block-no-empty': boolean;
+        'comment-no-empty': boolean;
+        'no-duplicate-at-import-rules': boolean;
+        'no-duplicate-selectors': boolean;
+        'no-empty-source': boolean;
+        'no-extra-semicolons': boolean;
+        'no-invalid-double-slash-comments': boolean;
+        'color-named': string;
+        indentation: number;
+        linebreaks: string;
+        'max-empty-lines': number;
+        'no-eol-whitespace': boolean;
+        'no-missing-end-of-source-newline': boolean;
+        'no-empty-first-line': boolean;
+        'number-leading-zero': string;
+        'number-no-trailing-zeros': boolean;
+        'string-quotes': string;
+        'value-keyword-case': string;
+        'property-case': string;
+        'declaration-bang-space-after': string;
+        'declaration-bang-space-before': string;
+        'block-opening-brace-space-before': string;
+        'function-comma-space-before': string;
+        'function-comma-space-after': string;
+        'value-list-comma-space-before': string;
+        'value-list-comma-space-after': string;
+        'function-url-no-scheme-relative': boolean;
+        'function-url-quotes': (string | {
+            except: string;
+        })[];
+        'declaration-block-semicolon-space-after': string;
+        'declaration-block-semicolon-space-before': string;
+        'declaration-colon-space-after': string;
+        'declaration-colon-space-before': string;
+        'selector-attribute-brackets-space-inside': string;
+        'selector-combinator-space-after': string;
+        'selector-combinator-space-before': string;
+        'selector-pseudo-class-parentheses-space-inside': string;
+        'selector-list-comma-space-after': string;
+        'selector-list-comma-space-before': string;
+    };
+};
+export default getDefaultStyleLintConfig;
