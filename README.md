@@ -1,5 +1,7 @@
 # @fantasticit/code-lint
 
+![preview](./code-lint.gif)
+
 ## Usage
 
 ```bash
