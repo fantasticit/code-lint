@@ -4,6 +4,8 @@ coverage
 node_modules
 types
 bin
+lib
+types
 **/*.test.js
 **/*.test.ts
 .eslintrc.js

@@ -1,1 +1,4 @@
-export declare const installLintStaged: () => Promise<void>;
+export declare const installLintStaged: () => {
+    toInstallDeps: string[];
+    toAddFiles: string[][];
+};

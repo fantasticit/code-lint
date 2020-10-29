@@ -1,1 +1,4 @@
-export declare const installCommitlint: () => Promise<void>;
+export declare const installCommitlint: () => {
+    toInstallDeps: string[];
+    toAddFiles: string[][];
+};

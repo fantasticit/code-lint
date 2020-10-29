@@ -1,1 +1,5 @@
-export declare const installPrettier: () => Promise<void>;
+export declare const installPrettier: () => {
+    toInstallDeps: string[];
+    toRemoveFiles: string[];
+    toAddFiles: string[][];
+};

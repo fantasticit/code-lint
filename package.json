@@ -2,7 +2,7 @@
   "name": "@fantasticit/code-lint",
   "version": "0.0.5",
   "description": "Tool for code lint, formatter.",
-  "author": "fantasticit <zhxuc7@163.com>",
+  "author": "fantasticit <fantasticit@163.com>",
   "homepage": "https://github.com/fantasticit/code-lint",
   "license": "ISC",
   "main": "lib/index.js",

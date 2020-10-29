@@ -1,1 +1,3 @@
-export declare const installEditorconfig: () => Promise<void>;
+export declare const installEditorconfig: () => {
+    toAddFiles: string[][];
+};
