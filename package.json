@@ -1,6 +1,6 @@
 {
   "name": "@fantasticit/code-lint",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Tool for code lint, formatter.",
   "author": "fantasticit <fantasticit@163.com>",
   "homepage": "https://github.com/fantasticit/code-lint",
