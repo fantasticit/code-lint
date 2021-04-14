@@ -16,6 +16,13 @@ then just run:
 yarn fantasticit-code-lint init
 ```
 
+or you can:
+
+```bash
+npm i -g @fantasticit/code-lint
+fantasticit-code-lint init # exec this in project
+```
+
 you can see these files added in your project:
 
 ```bash

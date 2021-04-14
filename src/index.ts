@@ -10,43 +10,44 @@ import { installStylelint } from './tasks/stylelint';
 import { installCommitizen } from './tasks/commitizen';
 import { installCommitlint } from './tasks/commitlint';
 
-const removeDepVersion = dep => /(\w+)@(\w+)/.test(dep) ? dep.split('@')[0] : dep;
+const removeDepVersion = (dep) => (/(\w+)@(\w+)/.test(dep) ? dep.split('@')[0] : dep);
 
 export const init = async () => {
   process.chdir(process.cwd());
 
-  const pkgPath = path.join(process.cwd(), 'package.json')
+  const pkgPath = path.join(process.cwd(), 'package.json');
 
   if (!fs.existsSync(pkgPath)) {
-    throw new Error(`No package.json find in ${process.cwd()}`)
+    throw new Error(`No package.json find in ${process.cwd()}`);
   }
 
   const start = Date.now();
   const spinner = createLoading('Install @fantaticit/code-lint...');
   spinner.start();
 
-  const toAddFiles: Array<[string, string]> = []
-  const toRemoveFiles: Array<string> = []
-  const toInstallDeps: Array<string> = []
-  const toRemoveDeps: Array<string> = []
-  const toModifyPkg: Array<Function> = []
+  const toAddFiles: Array<[string, string]> = [];
+  const toRemoveFiles: Array<string> = [];
+  const toInstallDeps: Array<string> = ['@fantasticit/code-lint'];
+  const toRemoveDeps: Array<string> = [];
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const toModifyPkg: Array<Function> = [];
 
-  const collect = fn => {
+  const collect = (fn) => {
     const {
       toAddFiles: s0 = [],
       toRemoveFiles: s1 = [],
       toInstallDeps: s2 = [],
       toRemoveDeps: s3 = [],
-      toModifyPkg: s4 = []
-    } = fn()
+      toModifyPkg: s4 = [],
+    } = fn();
 
     /* eslint-disable prefer-spread */
-    toAddFiles.push.apply(toAddFiles, s0)
-    toRemoveFiles.push.apply(toRemoveFiles, s1)
-    toInstallDeps.push.apply(toInstallDeps, s2)
-    toRemoveDeps.push.apply(toRemoveDeps, s3)
-    toModifyPkg.push.apply(toModifyPkg, s4)
-  }
+    toAddFiles.push.apply(toAddFiles, s0);
+    toRemoveFiles.push.apply(toRemoveFiles, s1);
+    toInstallDeps.push.apply(toInstallDeps, s2);
+    toRemoveDeps.push.apply(toRemoveDeps, s3);
+    toModifyPkg.push.apply(toModifyPkg, s4);
+  };
 
   [
     installEditorconfig,
@@ -57,29 +58,41 @@ export const init = async () => {
     installLintStaged,
     installCommitizen,
     installCommitlint,
-  ].forEach(collect)
+  ].forEach(collect);
 
-  const useYarn = hasYarn()
+  const useYarn = hasYarn();
 
-  if (hasYarn) await exec('yarn install');
+  if (hasYarn) {
+    await exec('yarn install');
+  }
 
-  const removeCommand = useYarn ? deps => `yarn remove ${deps} -D` : deps => `npm uninstall ${deps} --save-dev`
-  const installCommand = useYarn ? deps => `yarn add ${deps} -D` : deps => `npm install ${deps} --save-dev`
+  const removeCommand = useYarn
+    ? (deps) => `yarn remove ${deps} -D`
+    : (deps) => `npm uninstall ${deps} --save-dev`;
+  const installCommand = useYarn
+    ? (deps) => `yarn add ${deps} -D`
+    : (deps) => `npm install ${deps} --save-dev`;
 
-  const toRemoveDepsWithoutVersion = toRemoveDeps.map(removeDepVersion).join(' ')
-  const toInstallDepsWithoutVersion = toInstallDeps.map(removeDepVersion).join(' ')
+  const toRemoveDepsWithoutVersion = toRemoveDeps.map(removeDepVersion).join(' ');
+  const toInstallDepsWithoutVersion = toInstallDeps.map(removeDepVersion).join(' ');
 
-  await exec(`${removeCommand(toRemoveDepsWithoutVersion)}`)
-  await exec(`${installCommand(toInstallDepsWithoutVersion)}`)
+  try {
+    await exec(`${removeCommand(toRemoveDepsWithoutVersion)}`);
+  } catch (e) {
+    // eslint-disable no-empty
+  }
+  console.log(''); // eslint-disable-line no-console
+  console.log(`Now install dependencies...`); // eslint-disable-line no-console
+  await exec(`${installCommand(toInstallDepsWithoutVersion)}`);
 
-  toRemoveFiles.forEach(rm)
-  toAddFiles.forEach(([s, t]) => copy(s, t))
+  toRemoveFiles.forEach(rm);
+  toAddFiles.forEach(([s, t]) => copy(s, t));
 
-  const pkg = fs.readJsonSync(pkgPath)
+  const pkg = fs.readJsonSync(pkgPath);
 
-  toModifyPkg.forEach(patch => {
-    patch(pkg)
-  })
+  toModifyPkg.forEach((patch) => {
+    patch(pkg);
+  });
 
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
 

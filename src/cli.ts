@@ -1,7 +1,7 @@
 import program from 'commander';
 import { init } from '.';
 
-program.command(`init`).description(`初始化 code-dog`).action(init);
+program.command(`init`).description(`add lint, formatter config here`).action(init);
 
 program.arguments('<command>').action((cmd) => {
   program.outputHelp();

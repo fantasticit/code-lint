@@ -1,10 +1,6 @@
-export const installEslint =  () => {
+export const installEslint = () => {
   return {
-    toRemoveDeps: [
-      'prettier-eslint',
-      'prettier-eslint-cli',
-      'eslint-plugin-msfe',
-    ],
+    toRemoveDeps: ['prettier-eslint', 'prettier-eslint-cli'],
     toInstallDeps: [
       '@typescript-eslint/eslint-plugin',
       '@typescript-eslint/parser',
@@ -28,6 +24,6 @@ export const installEslint =  () => {
     toAddFiles: [
       ['samples/.eslintrc.js', '.eslintrc.js'],
       ['samples/.eslintignore', '.eslintignore'],
-    ]
-  }
+    ],
+  };
 };

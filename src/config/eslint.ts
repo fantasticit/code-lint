@@ -316,7 +316,7 @@ const getDefaultESLintConfig = () => {
       // 不能有未使用的变量(关闭js的规则，统一使用@typescript-eslint/no-unused-vars)
       'no-unused-vars': 'off',
       // 不能有未使用的变量
-      '@typescript-eslint/no-unused-vars': 'error',
+      '@typescript-eslint/no-unused-vars': 'warn',
       // 禁用propType校验，代码规范统一使用typescript编写，不使用propTypes
       'react/prop-types': 'off',
       // 禁用React组件必须设置displayName，看具体场景由开发自行决定
@@ -370,7 +370,7 @@ const getDefaultESLintConfig = () => {
       // ReactHooks的dependencies必须补充完整，不能遗漏
       'react-hooks/exhaustive-deps': 'error',
       // 不能出现解析不到的文件import引用
-      'import/no-unresolved': 'error',
+      'import/no-unresolved': 'warn',
       // 禁止使用require，优先使用import，特殊情况请disable单行
       '@typescript-eslint/no-var-requires': 'error',
       // 当import default的名字恰巧出现在命名导出时，可能是代码写错了，给出警告
