@@ -181,7 +181,6 @@ declare const getDefaultESLintConfig: () => {
         'react/display-name': string;
         'react/no-find-dom-node': string;
         'react/prefer-stateless-function': string;
-        '@typescript-eslint/explicit-member-accessibility': string;
         '@typescript-eslint/interface-name-prefix': string;
         'react/jsx-no-bind': string[];
         'react/jsx-boolean-value': string[];
@@ -215,25 +214,14 @@ declare const getDefaultESLintConfig: () => {
         '@typescript-eslint/no-var-requires': string;
         'import/no-named-as-default-member': string;
         'import/default': string;
+        '@typescript-eslint/no-empty-function': string;
     };
-    overrides: ({
-        files: string[];
-        rules: {
-            '@typescript-eslint/explicit-member-accessibility': (string | {
-                accessibility: string;
-                overrides: {
-                    constructors: string;
-                };
-            })[];
-            '@typescript-eslint/no-var-requires'?: undefined;
-        };
-    } | {
+    overrides: {
         files: string[];
         rules: {
             '@typescript-eslint/no-var-requires': string;
-            '@typescript-eslint/explicit-member-accessibility'?: undefined;
         };
-    })[];
+    }[];
     settings: {
         react: {
             version: string;

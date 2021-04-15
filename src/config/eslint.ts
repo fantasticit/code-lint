@@ -23,7 +23,6 @@ const getDefaultESLintConfig = () => {
       'plugin:import/typescript',
       'plugin:import/react',
       'prettier',
-      'prettier/@typescript-eslint',
       'plugin:prettier/recommended',
     ],
     rules: {
@@ -137,14 +136,14 @@ const getDefaultESLintConfig = () => {
       // 禁止数字字面量中使用前导和末尾小数点
       'no-floating-decimal': 'error',
       // 禁止对 function 的参数进行重新赋值
-      'no-param-reassign': 'error',
+      'no-param-reassign': 'off',
       // 禁止多次声明同一变量
       'no-redeclare': 'error',
       // 禁止在 return 语句中使用赋值语句
       'no-return-assign': 'error',
       // 禁用一成不变的循环条件
       'no-unmodified-loop-condition': 'error',
-      // 禁用未声明的变量，除非它们在 /*global */ 注释中被提到
+      // 禁用未声明的变量，除非它们在 /* global */ 注释中被提到
       'no-undef': 'error',
       // getter/setter必须承兑出现
       'accessor-pairs': 'error',
@@ -259,7 +258,7 @@ const getDefaultESLintConfig = () => {
       // 禁止在对象中使用不必要的计算属性(Fixable)
       'no-useless-computed-key': 'error',
       // 禁用不必要的构造函数
-      'no-useless-constructor': 'error',
+      'no-useless-constructor': 'warn',
       // 禁用不必要的转义字符
       'no-useless-escape': 'error',
       // 禁用 with 语句
@@ -326,7 +325,6 @@ const getDefaultESLintConfig = () => {
       // 如果可能，优先推荐使用无状态函数组件
       'react/prefer-stateless-function': 'error',
       // 显式声明public/protected/private(JS文件需要关闭，否则误报)
-      '@typescript-eslint/explicit-member-accessibility': 'off',
       // interface命名规范存在争议，加不加I前缀？不做强制限制
       '@typescript-eslint/interface-name-prefix': 'off',
       // 禁止将函数表达式直接写到jsx的props中，避免可读性和性能问题
@@ -377,23 +375,9 @@ const getDefaultESLintConfig = () => {
       'import/no-named-as-default-member': 'warn',
       // 无export default但是使用import default，可能是代码写错了，报错
       'import/default': 'error',
+      '@typescript-eslint/no-empty-function': 'warn',
     },
     overrides: [
-      {
-        files: ['*.ts', '*.tsx'],
-        rules: {
-          // 显式声明public/protected/private(只针对ts生效)
-          '@typescript-eslint/explicit-member-accessibility': [
-            'warn',
-            {
-              accessibility: 'explicit',
-              overrides: {
-                constructors: 'off',
-              },
-            },
-          ],
-        },
-      },
       {
         files: [
           '.cz-config.js',
